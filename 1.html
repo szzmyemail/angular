@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  cronChangeDate('50 56 14 * * ? *');
+  function cronChangeDate (str) {
+    //0 0 2 1 * ?
+    const toDate = {
+      loopType: '',
+      loopValue: '',
+      loopTime: ''
+    };
+    if (!str) {
+      toDate.loopType = '单次循环'
+    } else {
+      const result = str.split(' ').join('')
+      console.log('result',result);
+      const nArr = str.split(' ')
+      console.log('nArr', nArr);
+      const countData = this.getPlaceholderCount(result);
+      console.log('countData', countData);
+      if (!countData.count1) { // 没有'?'则是按周循环
+        toDate.loopType = 'weekly'
+        const keys = nArr[5]
+        const en2cnMap = {
+          1: '周天',
+          2: '周一',
+          3: '周二',
+          4: '周三',
+          5: '周四',
+          6: '周五',
+          7: '周六'
+        }
+        const cnKeys = keys.split(',').map(function (key) {
+          return en2cnMap[key];
+        })
+        toDate.loopValue = cnKeys.join(',')
+      } else if (countData.count1 + countData.count2 === 3) {
+        toDate.loopType = 'monthly'
+        const mot = [];
+        const mkeys = nArr[3].split(',')
+        for (var i = 0; i < mkeys.length; i++) {
+          const mo = mkeys[i] + '号'
+          mot.push(mo);
+        }
+        toDate.loopValue = mot.join(',')
+      } else {
+        toDate.loopType = 'daily'
+      }
+      toDate.loopTime = nArr[2] + ':' + nArr[1] + ':' + nArr[0]
+    }
+    console.log(toDate);  //{loopType: "月循环", loopValue: "2号,4号,21号", loopTime: "16:30:44"}
+    return toDate
+  }
+  // 统计字符串中包含某个字符的个数
+  function getPlaceholderCount (strSource) {
+    var count1 = 0 // ?的个数
+    var count2 = 0 // *的个数
+    strSource.replace(/[*?]/g, function (m) {
+      if (m === '?') {
+        count1++
+      } else if (m === '*') {
+        count2++
+      }
+    });
+    return {
+      count1, count2
+    }
+  }
+</script>
+</body>
+</html>

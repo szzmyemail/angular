@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../node_modules/angular/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+  <div ng-controller="ctrl as me">
+    <!--<i>{{me.age}}</i>-->
+    <!--<h2>{{me.userName}}</h2>-->
+    <!--<h3>{{me.aaa()}}</h3>-->
+    <div>{{me}}</div>
+    <button ng-click="me.defineName()">aa</button>
+  </div>
+  <script>
+    function fun(){
+
+    }
+    class Test {
+      constructor(){
+        //this.age = 18;
+      }
+      $onInit(){
+        this.username ='tt';
+        //this.defineName();
+        //this.username = 111;
+        //this.aaa();
+      }
+      defineName(){
+        this.age = 'ww';
+        console.log(111);
+        console.log(this);
+
+      }
+
+      aaa(){
+        return 'hehe';
+      }
+
+
+    }
+    angular.module('myApp',[])
+      .controller('ctrl',Test);
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="../node_modules/angular/angular.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+  <h1>name: {{name}}</h1>
+  <h1>age: {{age}}</h1>
+</div>
+<script>
+  angular
+    .module('myApp', [])
+    .controller('myCtrl', function($scope) {
+       $scope.name = 'lily';
+       $scope.age = 100;
+    });
+</script>
+</body>
+</html>

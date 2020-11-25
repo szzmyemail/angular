@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+
+  let cronChangeDate = str => {
+    var toDate = {}
+    if (!str) {
+      toDate.loopType = '单次循环' //空的为单次，即不循环
+    } else {
+      var result = str.split(' ').join('')
+      var count = 0 // *的个数
+      result.replace(/\*/g, function (m, i) { // '*'需要转义
+        if (m === '*') {
+          count++
+        }
+      })
+      var nArr = str.split(' ')
+      var strLast = str.charAt(str.length - 1)
+      if (count > 2) { // *的数量为3则为按天循环
+        toDate.loopType = '天循环'
+      } else if (strLast === '*' && count === 2) { // 最后一个为*则为按月循环
+        toDate.loopType = '月循环'
+        var mot = []
+        var mkeys = nArr[2].split(',')
+        for (var i = 0; i < mkeys.length; i++) {
+          let mo = mkeys[i] + '号'
+          mot.push(mo)
+        }
+        toDate.loopValue = mot.join(',')
+      } else {
+        toDate.loopType = '周循环'
+        var keys = nArr[4]
+        var en2cnMap = { //跟java的星期对应不一样，java的对应为1-7对应周天-周六
+          0: '周天',
+          1: '周一',
+          2: '周二',
+          3: '周三',
+          4: '周四',
+          5: '周五',
+          6: '周六'
+        }
+        if (keys) {
+          var cnKeys = keys.split(',').map(function (key, idx) {
+            return en2cnMap[key];
+          })
+          toDate.loopValue = cnKeys.join(',')
+        }
+      }
+      toDate.loopTime = nArr[1] + ':' + nArr[0]
+    }
+    console.log(toDate);
+    return toDate //返回一个对象，根据需要解析成想要的样子
+  }
+  cronChangeDate('0 0 2 1 * ?');
+
+</script>
+</body>
+</html>

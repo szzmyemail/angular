@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../node_modules/angular/angular.min.js"></script>
+
+</head>
+<body  ng-controller="myCtrl">
+<p>{{msg | reverse}}</p>
+<script>
+  angular.module('app',[])
+  .controller('myCtrl',['$scope',function($scope){
+    $scope.msg = 'peace'
+  }])
+  .filter('reverse',function(){
+    return function(text){
+      return text.split('').reverse().join('');
+    }
+  })
+</script>
+</body>
+</html>

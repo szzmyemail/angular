@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="../node_modules/angular/angular.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+  <h1>name: {{herName}}</h1>
+  <h1>name: {{age}}</h1>
+<!--  <h1>name: {{name}}</h1>-->
+</div>
+<script>
+  class lilyCtrl {
+    herName = 'lily';
+    constructor($scope) {
+      $scope.age =18;
+    }
+    showName () {
+      return this.herName
+    }
+  }
+  // let lily = new lilyCtrl();
+  // console.log(lilyCtrl.herName);
+  // console.log(lily.herName);
+  // console.log(lily.showName());
+  function wlCtrl($scope) {
+    $scope.name = 'wl';
+  }
+  angular
+    .module('myApp', [])
+    .controller('myCtrl', lilyCtrl);
+    //.controller('myCtrl', wlCtrl);
+
+
+</script>
+</body>
+</html>

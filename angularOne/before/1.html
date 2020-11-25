@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../node_modules/angular/angular.js"></script>
+</head>
+<body>
+  <div ng-controller="myCtrl">
+    <input type="text" ng-model="name">
+    <button ng-click="changeName()">changeName</button>
+  </div>
+  <div ng-controller='myCtrl2'>
+    <h2>{{name}}</h2>
+    <button ng-click="getName()">getName</button>
+  </div>
+  <script>
+    var app = angular.module('myApp',[]);
+    app.controller('myCtrl',function($scope,toUpperCase){
+      $scope.name = 'twl';
+      $scope.changeName = function(){
+        toUpperCase.setName($scope.name);
+      }
+    });
+    app.controller('myCtrl2',function($scope,toUpperCase){
+      $scope.name =toUpperCase.getName();
+      $scope.getName = function(){
+        $scope.name = toUpperCase.getName();
+      }
+    });
+    app.service('toUpperCase',function(){
+      var userName = '';
+      this.setName = function(newName){
+        userName = newName;
+      };
+      this.getName = function(){
+        return userName;
+      }
+    });
+  </script>
+</body>
+</html>

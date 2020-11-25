@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="../node_modules/angular/angular.min.js"></script>
+</head>
+<body ng-app="myApp">
+  <div ng-controller="fatherController">
+    <button ng-click="broadcastToChild()">broadcast</button>
+    <div ng-controller="sonOneController">
+      <div ng-controller="grandChild"></div>
+    </div>
+    <div ng-controller="sonTwoController"></div>
+  </div>
+</body>
+<script>
+  var app = angular.module('myApp',[]);
+  app.controller('fatherController',['$scope',function($scope){
+    console.log(this);
+    $scope.$broadcast('fatherBroadcast','toChild');
+    $scope.broadcastToChild = function(){
+      console.log('fatherController');
+      $scope.$broadcast('fatherBroadcast','toChild000','toChild111')
+    };
+    $scope.$on('grandChildEmit',function(event,arg){
+      console.log('fatherController');
+      console.log(event);
+      console.log(arg);
+    });
+  }])
+  .controller('sonOneController',['$scope',function($scope){
+    $scope.$on('fatherBroadcast',function(event,arg){
+      console.log('sonOneController');
+      console.log(event);
+      console.log(arg);
+    });
+    $scope.$on('grandChildEmit',function(event,arg){
+      console.log('sonOneController');
+      console.log(event);
+      console.log(arg);
+    });
+  }])
+  .controller('sonTwoController',['$scope',function($scope){
+    $scope.$on('fatherBroadcast',function(event,arg){
+      console.log('sonTwoController');
+      console.log(event);
+      console.log(arg);
+    });
+    $scope.$on('grandChildEmit',function(event,arg){
+      console.log('sonTwoController');
+      console.log(event);
+      console.log(arg);
+    });
+  }])
+  .controller('grandChild',['$scope',function($scope){
+    $scope.$on('fatherBroadcast',function(event,arg){
+      console.log('grandChild');
+      console.log(event);
+      console.log(arg);
+    });
+    $scope.$emit('grandChildEmit','toParentAndGrand');
+  }]);
+</script>
+</html>

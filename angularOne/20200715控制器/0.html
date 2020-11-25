@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="../node_modules/angular/angular.js"></script>
+  <title>Title</title>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+<!--  <h1>name: {{lilyCtrl.name}}</h1>-->
+  <!--  <h1>name: {{name}}</h1>-->
+</div>
+<script>
+  class lilyCtrl {
+    herName = 'lily';
+    constructor() {
+    }
+    showName () {
+      return this.herName
+    }
+  }
+  let lily = new lilyCtrl();
+  console.log(lilyCtrl.herName);
+  console.log(lily.herName);
+  console.log(lily.showName());
+</script>
+</body>
+</html>
