@@ -1,0 +1,12 @@
+<div>
+    <div>
+        <button (click)="addPeople()">add people</button>
+    </div>
+
+    <ul>
+        <li *ngFor="let item of list; trackBy: trackByItems">
+            {{ item.name }}
+        </li>
+    </ul>
+
+</div>
