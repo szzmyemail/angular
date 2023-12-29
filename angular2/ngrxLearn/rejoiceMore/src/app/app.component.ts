@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { increment, decrement, reset } from './state/counter.actions';
-//import { APPState } from './state';
-import {counterFeatureKey, State, counterReducer} from './state/counter.reducer';
+import { State} from './state/counter.reducer';
+import { getCount} from './state/counter.selectors';
 
 @Component({
   selector: 'app-root',
@@ -13,24 +13,20 @@ import {counterFeatureKey, State, counterReducer} from './state/counter.reducer'
 export class AppComponent {
   title = 'rejoiceMore';
   state$: Observable<State>;
-  constructor(private store: Store<{counter: State}>) {
-    this.state$ = store.select('counter');
+  count20231216: Observable<any>;;
+  constructor(private store: Store<{aaa: State}>) {
+    this.state$ = store.select('aaa');
+
+    this.count20231216 = this.store.pipe(select(getCount));
   }
   ngOnInit() {
-    const a = this.testPromiseOrObservable();
-    console.log(1111, a instanceof Promise); //true
-    console.log(1111, a instanceof Observable); //false
-    a.then(res => {
-      console.log(0, res);
-      res.subscribe(
-        res => {
-          console.log('success', res);
-        },
-        err => {
-          console.log('error', err);
-        }
-      );
-    });
+    this.count20231216.subscribe(
+      res => {
+        console.log(777, res);
+      }
+    );
+
+    this.test();
   }
  
   increment() {
@@ -45,19 +41,9 @@ export class AppComponent {
     this.store.dispatch(reset());
   }
 
-  testPromiseOrObservable() {
-    const promise = new Promise((resolve) => {
-      setTimeout(() => resolve(1), 2000)
-    });
-    return promise.then(res => {
-      //console.log(res === 1); //true
-      return new Observable(observer => {
-        //return observer.next(2);
-        
-        //observer.next(2);
-        throw new Error('error la')
-        observer.next('');
-      })
-    })
+  test() {
+    return Promise.resolve(2).then(
+      res => console.log(res)
+    )
   }
 }

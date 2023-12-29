@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import * as CounterActions from './counter.actions';
 
 
-export const counterFeatureKey = 'counter';
+export const counterReducerFeatureKey = 'counter1';
 
 export interface State {
   count: number,

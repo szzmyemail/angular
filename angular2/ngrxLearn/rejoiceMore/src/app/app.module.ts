@@ -4,7 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './state/counter.reducer';
+import * as counterReducers from './state/counter.reducer';
+import { AtlasAuthDataAccessModule } from "./state/counter.data.access.module"
+//import { counterReducer, counterReducerFeatureKey } from './state/counter.reducer';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,8 @@ import { counterReducer } from './state/counter.reducer';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({counter: counterReducer})
+    StoreModule.forRoot({aaa: counterReducers.counterReducer}),
+    AtlasAuthDataAccessModule
   ],
   providers: [],
   bootstrap: [AppComponent]

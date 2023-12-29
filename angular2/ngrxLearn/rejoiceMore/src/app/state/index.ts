@@ -10,12 +10,12 @@
 
 // //store中存储的状态类型接口
 // export interface APPState {
-//   [fromCounter.counterFeatureKey]: fromCounter.State
+//   [fromCounter.counterReducerFeatureKey]: fromCounter.State
 // }
 
 // //状态名字和reducer对应的关系
 // export const reducers: ActionReducerMap<APPState> = {
-//   [fromCounter.counterFeatureKey]: fromCounter.counterReducer
+//   [fromCounter.counterReducerFeatureKey]: fromCounter.counterReducer
 // };
 
 
